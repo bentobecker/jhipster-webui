@@ -1,0 +1,2787 @@
+application {
+  config {
+    applicationType monolith
+    baseName webui
+    packageName de.sep.webui
+    buildTool maven
+    serverPort 11401
+    authenticationType session
+    databaseType sql
+    devDatabaseType h2Memory
+    prodDatabaseType postgresql
+    enableHibernateCache false
+    cacheProvider ehcache
+    clientPackageManager npm
+    clientFramework angularX
+    enableSwaggerCodegen true
+    enableTranslation true
+    jhiPrefix sep
+    languages [en, de]
+    nativeLanguage en
+    reactive false
+    searchEngine false
+    skipUserManagement false
+    testFrameworks [cypress]
+    websocket false
+  }
+  entities *
+}
+
+enum VMDKCommand {
+  ATTACH, MOUNT, MOUNTSAVESET, MOUNTEXCHANGE, UMOUNT
+}
+
+
+entity MediapoolsEvents {
+  id Long,
+  name String,
+  poolName String,
+  exec Boolean,
+  eol Long,
+  scheduleName String,
+  priority Long,
+  suppress Boolean,
+  followUp String,
+  owner String,
+  grpFlag Boolean,
+  action MediaActionType,
+  driveNum Long,
+  mcount Long,
+  label String,
+  loaderNum Long,
+  slotRange String,
+  emergency String,
+  initFlags String,
+  checkFlag CheckFlagType,
+  mediaType String,
+  options String,
+  sepcomment String,
+  usercomment String,
+  immediateFlag Boolean,
+  mtime Instant
+}
+
+entity MigrateDto {
+  followUp String,
+  submitFlag Boolean,
+  priority Long,
+  saveset String,
+  grpflag Boolean,
+  deleteFlag String,
+  sourcePool String,
+  targetPool String,
+  task String,
+  taskGroup String,
+  savesetCnt Long,
+  client String,
+  sourceDrive Long,
+  targetDrive Long,
+  ifaceName String,
+  sourceIfaceName String,
+  usercomment String,
+  backupState StateType,
+  mediaLabel String,
+  absoluteFlag Boolean,
+  migratedFlag Boolean,
+  migrationCmd String,
+  options String,
+  restartId String,
+  duration String,
+  lifetime String,
+  scheduleName String
+}
+
+entity Servers {
+  name String,
+  ipAddress String,
+  rmiPort Integer,
+  ctrlPort Integer,
+  dbPort Integer,
+  dbName String,
+  dbAlias String,
+  dbType String,
+  connect Boolean,
+  sepcomment String,
+  usercomment String,
+  idNum Long,
+  mtime Instant
+}
+
+enum ReferenceType {
+  START, RESTART, NONE
+}
+
+entity AllResults {
+  id String,
+  state String,
+  object String,
+  task String,
+  startTime Instant,
+  stopTime Instant,
+  sesamDate Instant,
+  saveset String,
+  client String,
+  clientId Long,
+  driveNum Long,
+  dataSize Double,
+  throughput Double,
+  duration Long,
+  sessionId String,
+  originalSaveset String,
+  mediaPool String,
+  sepcomment String,
+  usercomment String,
+  ssddFlag Boolean,
+  schedule String,
+  taskSource String,
+  eol Instant,
+  externFlag Boolean,
+  originServer String,
+  mtime Instant
+}
+
+entity DataStoresExtendedDto {
+}
+
+entity AbstractSchedulesEntity {
+  startDate Instant,
+  endDate Instant,
+  startTime Instant,
+  endTime Long,
+  lifeTime Long,
+  duration Long
+}
+
+entity AllEvents {
+  id Long,
+  name String,
+  exec Boolean,
+  eol Long,
+  scheduleName String,
+  priority Long,
+  suppress Boolean,
+  followUp String,
+  owner String,
+  immediateFlag Boolean,
+  poolName String,
+  subTaskName String,
+  object String,
+  grpFlag Boolean,
+  driveNum Long,
+  ifaceName String,
+  dataMover String
+}
+
+entity DriveGroups {
+  id Long,
+  name String,
+  smsFlag SmsFlag,
+  usercomment String,
+  defaultInterface String,
+  encryptionCapable Boolean,
+  mtime Instant
+}
+
+entity Profiles {
+  value String,
+  mtime Instant
+}
+
+entity ConfirmDto {
+  retVal Integer,
+  singleSavesetSelected Boolean
+}
+
+entity DrivePerfItemHistory {
+  time Instant,
+  throughput Double,
+  dataSize Double,
+  status String,
+  write Long,
+  read Long,
+  driveNum Long
+}
+
+enum SMLoaderAction {
+  LOAD, UNLOAD, IMPORT, EXPORT
+}
+
+enum RestoreMode {
+  NEWVERSION, OVERWRITE, NOOVERWRITE, ATTACH, MOUNT, MOUNTSAVESET, NONE
+}
+
+entity MediapoolLocations {
+  name String,
+  path String,
+  usercomment String,
+  capacity Long,
+  lowWaterMark Long,
+  highWaterMark Long,
+  loadCmd String,
+  unloadCmd String,
+  accessMode String,
+  status String,
+  devicePath String,
+  mtime Instant
+}
+
+entity CommandEvents {
+  id Long,
+  name String,
+  object String,
+  exec Boolean,
+  eol Long,
+  scheduleName String,
+  priority Long,
+  suppress Boolean,
+  followUp String,
+  owner String,
+  type CommandType,
+  clientId Long,
+  host String,
+  userName String,
+  options String,
+  serverOptions String,
+  command String,
+  commandName String,
+  sepcomment String,
+  usercomment String,
+  immediateFlag Boolean,
+  mtime Instant
+}
+
+entity DrivePerfDto {
+  id Long,
+  sumThroughput Double,
+  sumDataSize Double
+}
+
+enum StatisticsSubtype {
+  BACKUP, LATESTBACKUP, RESTORE
+}
+
+enum NotificationSeverity {
+  UNDEFINED, INFO, WARNING, ERROR, CRITICAL, EMERGENCY, PROMOTION, RECOMMENDED, STRICTLYRECOMMENDED, SECURITY, SESAMINFO, IGNORE
+}
+
+entity ServerFileListDto {
+  name String,
+  sepsize Long,
+  lastModified Long,
+  location String,
+  type String,
+  selector String,
+  additionalInfo String,
+  dayLbl String,
+  hidden Boolean
+}
+
+entity AclUser {
+  id String,
+  type AclUserType,
+  name String,
+  invalid Boolean,
+  canDelete Boolean,
+  canEdit Boolean
+}
+
+entity SepRoles {
+  id Long,
+  name String,
+  enabled Boolean,
+  usercomment String,
+  mtime Instant
+}
+
+entity ImmediateBackupDto {
+  id Long,
+  startDate Instant,
+  taskName String,
+  taskGroupName String,
+  mediaPoolName String,
+  scheduleName String,
+  priority Long,
+  suppress Boolean,
+  followUp String,
+  ssddFlag Boolean,
+  onlineFlag Boolean,
+  endTime Long,
+  migrationTaskName String,
+  duration Long,
+  lifeTime Long,
+  owner String
+}
+
+entity Defaults {
+  value String,
+  host String,
+  protection String,
+  mtime Instant
+}
+
+enum UserOrigin {
+  SYSTEM, INTERNAL, POLICY, LDAP, AD, USER
+}
+
+entity LoaderContentsKey {
+  loaderNum Long,
+  object LoaderContentsObject,
+  number Long
+}
+
+entity MigrationCfdiType {
+  generation Boolean,
+  copy Boolean,
+  full Boolean,
+  diff Boolean,
+  incr Boolean
+}
+
+enum NotificationsType {
+  UNDEFINED, NEWDAY, TICKER, POPUP, DIALOG, CONFIRM, BROWSE, LOG, TRAY, SILENT
+}
+
+entity RestoreOptions {
+  restoreToOriginalPath Boolean,
+  keepOriginalTreeStructure Boolean,
+  restoreToPath String,
+  restoreId String,
+  restoreMode RestoreMode
+}
+
+enum UpdateRecommendation {
+  NOUPDATENEEDED, UPDATERMIGUI, UPDATETOWEBUI, UPDATEWEBUI, INSTALLNEW, NONE, OLDGUISERVER
+}
+
+entity SepDate {
+  date Instant,
+  label String
+}
+
+entity StatisticResultGroup {
+  id String,
+  type String,
+  children String,
+  values String
+}
+
+entity EventFlag {
+  groupMode GroupMode,
+  type ResultFdiType,
+  c String,
+  pos Integer
+}
+
+entity RestoreDto {
+  name String,
+  genmode Boolean,
+  treeType RestoreTreeType,
+  driveNum Long,
+  options String,
+  targetPath String,
+  ifaceName String,
+  filter String,
+  usercomment String,
+  sesamDate Instant,
+  task String,
+  cnt Long,
+  selFile String,
+  targetDatastore String,
+  original Boolean,
+  recover String,
+  targetServer String,
+  verify String,
+  overwrite Boolean,
+  rename Boolean,
+  mode RestoreMode,
+  mediaPool String,
+  followUp String,
+  restoreMode RestoreMode,
+  eol Long,
+  useLastSuccessfulBackup Boolean,
+  pathFlag Boolean,
+  dumpFlag Boolean,
+  targetFolder String,
+  targetResource String,
+  targetNetwork String,
+  cryptFlag CryptFlagType,
+  dataMover String,
+  cryptKey String
+}
+
+entity SuppressFlags {
+  suppressFlags SuppressFlag
+}
+
+enum StateType {
+  INQUEUE, ACTIVE, SUCCESSFUL, INFO, CANCELLED, ERROR, PARTIALLYDELETED, TIMING, INITIALISATION, NONE, UNUSED, WAITING, SUPPRESSED, BLOCKED, DELETED, NONESELECTED
+}
+
+entity SepGroups {
+  id Long,
+  name String,
+  enabled Boolean,
+  usercomment String,
+  mtime Instant,
+  usersList String,
+  rolesList String
+}
+
+entity SessionDto {
+  id String,
+  name String,
+  loginName String,
+  type SessionType,
+  address String,
+  roles String
+}
+
+entity SnapshotConfigDto {
+  name String,
+  description String,
+  memory Boolean,
+  quiesce Boolean,
+  consolidate Boolean
+}
+
+entity RestoreResults {
+  name String,
+  client String,
+  clientId Long,
+  driveNum Long,
+  duration Long,
+  eol Instant,
+  ifaceName String,
+  sepcomment String,
+  pid Long,
+  priority Long,
+  saveset String,
+  savesetExist Boolean,
+  schedule String,
+  sesamDate Instant,
+  sesamVersion String,
+  sessionId String,
+  sepsize Double,
+  startTime Instant,
+  state StateType,
+  stopTime Instant,
+  throughput Double,
+  usercomment String,
+  savesetUsed String,
+  task String,
+  restoreTask String,
+  savesetDate Instant,
+  cnt Long,
+  genmode Boolean,
+  overwrite Boolean,
+  listmode String,
+  mapMode String,
+  treeType RestoreTreeType,
+  mode RestoreMode,
+  rename String,
+  original Boolean,
+  recover String,
+  onlinemode String,
+  startmode String,
+  dataMover String,
+  attachClient String,
+  target String,
+  targetServer String,
+  targetStore String,
+  targetFolder String,
+  targetNetwork String,
+  targetResource String,
+  dumpFlag Boolean,
+  pathFlag Boolean,
+  subtaskFlag Boolean,
+  verify String,
+  userName String,
+  parent String,
+  locationId Long,
+  filter String,
+  relocSource String,
+  mediaPool String,
+  mountState String,
+  mountPath String,
+  dataSize Double,
+  restoreSize Double,
+  options String,
+  uuid String,
+  mtime Instant,
+  originServer String
+}
+
+enum VmServerType {
+  CITRIXHYPERVISOR, HYPERVSERVER, HYPERVCLUSTER, KVMSERVER, NUTANIX, OPENNEBULASERVER, PROXMOX, RHV, VCENTER, NONE
+}
+
+entity DataStoreReferenceDto {
+}
+
+entity GenerateCommandDto {
+  attribute String,
+  dataCenter String,
+  dataStore String,
+  exclude String,
+  esx String,
+  folder String,
+  name String,
+  operSystem String,
+  option String,
+  powerState String,
+  server String,
+  type BackupType,
+  subType TasksSubType,
+  taskGroup String,
+  virtualApp String,
+  tags String
+}
+
+enum Cfdi {
+  COPY, FULL, DIFF, INCR, NONE
+}
+
+entity StatisticsResultDto {
+  clients String,
+  type StatisticsType,
+  subtype StatisticsSubtype,
+  children String
+}
+
+entity UploadedFileItem {
+  name String,
+  sepsize Long,
+  data Blob
+}
+
+entity StartDto {
+  startTime Instant,
+  duration Long,
+  lifeTime Long,
+  followUp String
+}
+
+enum CheckFlagType {
+  CHECKLABELONTAPE, ADJUSTMENTBYBARCODEONLY, NONE
+}
+
+entity RoleRelations {
+  id Long,
+  groupId Long,
+  roleId Long,
+  mtime Instant,
+  uuid String
+}
+
+entity OperSystems {
+  PLATFORMNETWARE String,
+  PLATFORMUNIX String,
+  PLATFORMVMS String,
+  PLATFORMWINDOWS String,
+  PLATFORMNDMP String,
+  PLATFORMLINUX String,
+  name String,
+  type OperatingSystemType,
+  platform String,
+  proxy ProxyType,
+  mtime Instant
+}
+
+entity RestartDto {
+  singleDay Instant,
+  duration Long,
+  savesets String,
+  singleDateFlagToday Boolean,
+  singleDateFlagYesterday Boolean,
+  startDate Instant,
+  endDate Instant,
+  taskName String,
+  priority Long,
+  ssddFlag Boolean
+}
+
+entity TaskTypes {
+  name String,
+  shortName String,
+  backupCmd String,
+  backupOptions String,
+  prepostCmd String,
+  restoreCmd String,
+  restoreOptions String,
+  rPrepostCmd String,
+  sourcePrefix String,
+  platform String,
+  proxy ProxyType,
+  flags String,
+  sepcomment String,
+  interpreter Interpreter,
+  multiSource String,
+  restoreExtern Boolean,
+  externalTool String,
+  restoreAsPath Boolean,
+  restoreOnline Boolean,
+  restorePlain Boolean,
+  restoreRecover Boolean,
+  restoreReloc Boolean,
+  restoreSelective Boolean,
+  restoreStart Boolean,
+  restoreTargetstore Boolean,
+  sourceMatchAllow String,
+  sourceMatchDeny String,
+  backupOnline Boolean,
+  cryptCapable String,
+  loginFlag Boolean,
+  taskNameTemplate String,
+  mtime Instant
+}
+
+entity AllEventFlag {
+  groupMode GroupMode,
+  type AllEventType,
+  c String,
+  pos Integer
+}
+
+entity DatastoreHistoryDto {
+  sesamDate Instant,
+  startTime Instant,
+  client String,
+  dataStore String,
+  mediaPool String,
+  capacity Double,
+  lowWaterMark Double,
+  highWaterMark Double,
+  filled Double,
+  total Double,
+  used Double,
+  free Double,
+  stored Double
+}
+
+enum BsrFlagType {
+  BSROFF, SYSTEMMINIMALBACKUP, SYSTEMVOLUMEBACKUP, FULLLOCALSYSTEM, NONE
+}
+
+entity Accounts {
+  name String,
+  customer String,
+  smtpEmailAddress String,
+  smtpServer String,
+  smtpPort Long,
+  sslOptions SslOption,
+  mailUsername String,
+  mailPassword String,
+  mailTo String,
+  mailCc String,
+  mailBcc String,
+  serviceLocation String,
+  mtime Instant
+}
+
+entity Credentials {
+  id Long,
+  name String,
+  type String,
+  enabled Boolean,
+  accessName String,
+  osAccessName String,
+  secret String,
+  privateKey String,
+  publicKey String,
+  hostname String,
+  port Long,
+  storeName String,
+  path String,
+  usercomment String,
+  rank Long,
+  mtime Instant,
+  uuid String
+}
+
+entity MediaEvents {
+  id Long,
+  name String,
+  action String,
+  exec Boolean,
+  scheduleName String,
+  followUp String,
+  priority Long,
+  suppress Boolean,
+  owner String,
+  eol Long,
+  loaderNum Long,
+  dataStoreName String,
+  poolName String,
+  driveNum Long,
+  type String,
+  actionType MediaActionType,
+  label String,
+  grpFlag Boolean,
+  mCount Long,
+  slotRange String,
+  emergency String,
+  initFlags String,
+  checkFlag String,
+  mediaType String,
+  options String,
+  lowWaterMark Long,
+  highWaterMark Long,
+  sepcomment String,
+  usercomment String,
+  immediateFlag Boolean,
+  mtime Instant
+}
+
+entity StringLabelModelClass {
+  value String
+}
+
+entity UserGroupRelations {
+  mtime Instant,
+  uuid String
+}
+
+enum VMToolsState {
+  Installed, Running, Stopped, Executing, NONE
+}
+
+entity AbstractEventsEntity {
+}
+
+enum MinMax {
+  MIN, MAX, NONE
+}
+
+entity ServerFileFilter {
+  type ServerFileType,
+  subtype ServerFileSubtype,
+  name String,
+  selector String,
+  offset Long,
+  length Integer,
+  fromDate Instant,
+  toDate Instant,
+  singleDay Instant,
+  fromType InstantStringType,
+  toType InstantStringType,
+  singleType InstantStringType,
+  localDirPath String,
+  localFilePath String,
+  overwrite Boolean,
+  force Boolean,
+  viewAsStream Boolean
+}
+
+enum AllEventType {
+  COMMAND, MEDIA, MIGRATION, REPLICATION, NEWDAY, RESTORE, STARTUP, TASKGROUP, TASK, COPY, FULL, DIFF, INCR, NONE
+}
+
+entity LoaderDevices {
+  devicePath String,
+  mtime Instant
+}
+
+entity PolicyDataDto {
+  perm String,
+  user String,
+  client String
+}
+
+entity VMServer {
+  url String,
+  username String,
+  password String,
+  vm String,
+  dataCenter String
+}
+
+entity Permissions {
+  id Long,
+  name String,
+  enabled Boolean,
+  usercomment String,
+  mtime Instant
+}
+
+enum CryptFlagType {
+  BF64, AES256, NONE
+}
+
+enum NotificationsAction {
+  OPEN, CLOSE, UNDEFINED
+}
+
+enum OnlineFlag {
+  HOT, COLD, WARM, NONE
+}
+
+enum StatisticsGroupMode {
+  TASK, CLIENT, TASKTYPE, STATE
+}
+
+enum AuthenticationType {
+  ANONYMOUS, DB, AD, LDAP
+}
+
+enum InstantPattern {
+  YyyyMMddHHmmss, YyyyMMddHHmmss, DdMMyyHHmmss, DMyHHmmss, MMddyyHHmmss, MMddyyyyHHmmss, YyyyMMddHHmm, YyyyMMddHHmmEE, DdMMyyHHmm, MMddyyHHmm, MMddyyyyHHmm, DdMMyy, DdMMyyyy, MMddyy, MMddyyyy, YyyyMMdd, YyMMdd, YyyymmddHHmm, NONE
+}
+
+entity NewdayEvents {
+  id Long,
+  name String,
+  object String,
+  exec Boolean,
+  eol Long,
+  scheduleName String,
+  priority Long,
+  suppress Boolean,
+  followUp String,
+  owner String,
+  immediateFlag Boolean,
+  mtime Instant
+}
+
+entity ClientReferenceDto {
+  hasDataMoverReferences Boolean
+}
+
+entity MigrationEvents {
+  id Long,
+  name String,
+  migrationTask String,
+  exec Boolean,
+  eol Long,
+  scheduleName String,
+  followUp String,
+  priority Long,
+  suppress Boolean,
+  owner String,
+  saveset String,
+  grpflag Boolean,
+  task String,
+  taskGroup String,
+  savesetCnt Long,
+  targetDrive Long,
+  targetPool String,
+  ifaceName String,
+  srvIfaceName String,
+  migratedFlag Boolean,
+  absoluteFlag Boolean,
+  deleteFlag String,
+  state StateType,
+  mediaLabel String,
+  client String,
+  clientId Long,
+  listmode String,
+  submitFlag Boolean,
+  options String,
+  visible Boolean,
+  dataMover String,
+  dataMoverId Long,
+  migrationCmd String,
+  referenceType ReferenceType,
+  referenceId String,
+  migrationId String,
+  usercomment String,
+  immediateFlag Boolean,
+  overwriteWithMigrationTask Boolean,
+  mtime Instant
+}
+
+entity HwLoadersExActionDto {
+  user String,
+  id Long,
+  slot String,
+  driveNum Long,
+  port String,
+  action SMLoaderAction
+}
+
+entity ClientTaskDto {
+}
+
+entity UserScheds {
+  datePattern String
+  nextExec Instant,
+  usercomment String,
+  mtime Instant
+}
+
+entity CalSheets {
+  name String,
+  start Instant,
+  endTime Instant,
+  eventType EventType,
+  evId Long,
+  schedule String,
+  priority Long,
+  state StateType,
+  taskname String,
+  suppress Boolean,
+  sepcomment String,
+  options String,
+  mtime Instant
+}
+
+entity HwLoaders {
+  id Long,
+  device String,
+  clientId Long,
+  name String,
+  loaderType String,
+  vendor String,
+  product String,
+  serialNumber String,
+  identifier String,
+  ctrl LoaderCtrlType,
+  slots Long,
+  maxSlots Long,
+  drives Long,
+  ports Long,
+  transport Long,
+  firstSlot Long,
+  lastSlot Long,
+  autounload Boolean,
+  barcode Boolean,
+  loadCmd String,
+  unloadCmd String,
+  sepcomment String,
+  usercomment String,
+  mtime Instant
+}
+
+entity LocationGroupRoles {
+  id Long,
+  location Long,
+  group Long,
+  role Long
+}
+
+entity PreferencesKey {
+  prefNode String,
+  prefUser String,
+  prefKey String
+}
+
+entity RestoreTasks {
+  name String,
+  genmode Boolean,
+  listmode String,
+  mapMode String,
+  treeType RestoreTreeType,
+  mode RestoreMode,
+  overwrite Boolean,
+  rename Boolean,
+  original Boolean,
+  recover String,
+  onlinemode String,
+  startmode String,
+  attachClient String,
+  dataMover String,
+  dataMoverId Long,
+  immutableFlags Boolean,
+  mountPath String,
+  targetPath String,
+  targetServer String,
+  targetStore String,
+  targetFolder String,
+  targetNetwork String,
+  targetResource String,
+  template Boolean,
+  dumpFlag Boolean,
+  pathFlag Boolean,
+  subtaskFlag Boolean,
+  verify String,
+  parentTask String,
+  driveNum Long,
+  ifaceName String,
+  mediaPool String,
+  filter String,
+  relocSource String,
+  exclude String,
+  makeStamp Instant,
+  eol Long,
+  restoreCmd String,
+  options String,
+  srvOptions String,
+  cryptFlag CryptFlagType,
+  cryptKey String,
+  userName String,
+  username String,
+  password String,
+  credentialId Long,
+  credentialUuid String,
+  sepcomment String,
+  usercomment String,
+  mtime Instant,
+  selFile String,
+  savesetId String
+}
+
+entity AclPermission {
+  grantType AclGrantType,
+  type AclPermissionType
+}
+
+enum DiffCacheType {
+  ACLS, ACCOUNTS, CALENDARS, CALENDAREVENTS, CAPACITIES, CLIENTS, COMMANDS, COMMANDEVENTS, CREDENTIALS, DATASTORES, DATASTORETYPES, DEFAULTS, DRIVEGROUPS, DRIVETYPES, EXTERNALGROUPS, EXTERNALGROUPRELATIONS, GROUPS, HWDRIVES, HWLOADERS, INTERFACES, LOADERCONTENTS, LOADERDEVICES, LOCATIONS, MEDIA, MEDIAACTIONS, MEDIAEVENTS, MEDIAPOOLLOCATIONS, MEDIAPOOLRELATIONS, MEDIAPOOLS, MEDIAPOOLSEVENTS, MEDIATYPES, MIGRATIONEVENTS, MIGRATIONTASKS, NEWDAYEVENTS, NONE, NOTIFICATIONS, OPERSYSTEMS, PARAMSFIX, PERMISSIONS, PERMISSIONRELATIONS, PREFERENCES, PROFILES, REPLICATIONTYPES, RESTOREEVENTS, RESTORETASKS, ROLES, ROLERELATIONS, SCHEDULES, SERVERS, SESAMEVENTS, SYNTAXES, TASKGROUPRELATIONS, TASKGROUPS, TASKEVENTS, TASKS, TASKTYPES, TERMS, USERGROUPRELATIONS, USERS, USERALLOWEDHOSTS, USERSCHEDS
+}
+
+entity SyntaxesKey {
+  operSystem String,
+  command String
+}
+
+entity TermCommandEventDto {
+}
+
+entity DriveGroupReferenceDto {
+}
+
+entity InventoryDto {
+  realHwLoaders Integer,
+  licensedLoaders Integer,
+  usedClients Integer,
+  licensedClients Integer,
+  usedSlots Integer,
+  licensedSlots Integer
+}
+
+entity SavesetExists {
+  count Integer
+}
+
+enum MediaPoolType {
+  NONE, CLONE, SNAPNETAPP
+}
+
+enum SessionType {
+  CLASSIC, WEB
+}
+
+entity TermRestoreEventDto {
+}
+
+entity TaskGroupRelations {
+  taskOrder Long,
+  mtime Instant
+}
+
+enum RestoreTransaction {
+  NONE, RECOVER, NORECOVER, ONLINE
+}
+
+entity TermTaskEventDto {
+}
+
+entity IniProperty {
+  key String,
+  value String
+}
+
+enum TasksSubType {
+  CBT, CONFIG, IMAGE, MAIN, RCT, NONE
+}
+
+entity TaskTypesProtectionType {
+  extern Boolean,
+  unix Boolean,
+  windows Boolean,
+  netware Boolean,
+  ndmp Boolean,
+  novellOESFlag Boolean,
+  platform String
+}
+
+entity MediaTypes {
+  name String,
+  mtime Instant
+}
+
+entity MigrationTasks {
+  MAXNAMELENGTH Integer,
+  DEFAULTTASKNAMETEMPLATE String,
+  name String,
+  sourcePool String,
+  targetPool String,
+  sourceDrive Long,
+  targetDrive Long,
+  sesamDate Instant,
+  savesetCnt Long,
+  absoluteFlag Boolean,
+  saveset String,
+  grpflag Boolean,
+  task String,
+  taskGroup String,
+  backupState StateType,
+  mediaLabel String,
+  genmode Boolean,
+  deleteFlag String,
+  migratedFlag Boolean,
+  original Boolean,
+  client String,
+  ifaceName String,
+  sourceIfaceName String,
+  filter String,
+  submitFlag Boolean,
+  makeStamp Instant,
+  eol Long,
+  migrationCmd String,
+  options String,
+  sepcomment String,
+  usercomment String,
+  generated Long,
+  mtime Instant
+}
+
+enum LoaderContentsObject {
+  SLOT, TRANSPORT, PORT, DRIVE, NONE
+}
+
+enum StripesType {
+  DEFAULT, WHITERED, WHITEGREEN, WHITEBLUE, WHITEYELLOW, WHITEGRAY, NONE
+}
+
+entity DrivePerfTaskItem {
+  name String,
+  dataSize Double,
+  throughput Double,
+  driveNum Long
+}
+
+entity LoaderDevicesKey {
+  loader Long,
+  slot Long
+}
+
+entity LoginType {
+  user RequiredType,
+  password RequiredType
+}
+
+entity ServerInfoDto {
+  name String,
+  ip String,
+  restPort Integer,
+  os String,
+  comment String,
+  id String,
+  gitId String,
+  gitBranch String,
+  dateString String,
+  fullBuildString String,
+  updateRecommendation UpdateRecommendation,
+  requireAuth Boolean,
+  message String,
+  filesToUpdate String,
+  lang String,
+  javaVersion String,
+  javaRuntime String,
+  javaVm String,
+  javaVendor String,
+  javaOs String,
+  release String,
+  kernel String,
+  installationDate String,
+  brand String,
+  encoding String,
+  buildHost String,
+  dbType String,
+  serverOs String,
+  edition String,
+  kitVersion String,
+  timeZone String,
+  tzOffset Integer,
+  sessionId String,
+  capabilities String
+}
+
+entity FileRow {
+  client String,
+  taskType String,
+  fullFileName String,
+  fullLisfileName String,
+  fileType String,
+  lastModifiedDate String,
+  lastModifiedTime String,
+  creationDate String,
+  creationTime String,
+  segmentNum String,
+  startPos String,
+  endPos String,
+  fullContents String,
+  isFile Boolean,
+  isDirectory Boolean,
+  isVM Boolean,
+  total Integer,
+  free Integer,
+  capacity Integer,
+  highWaterMark Integer,
+  lowWaterMark Integer
+}
+
+entity Preferences {
+  prefValue String,
+  profileName String,
+  mtime Instant
+}
+
+entity Mtimes {
+  tableName String,
+  modificationTime Instant
+}
+
+enum DayOfWeek {
+  DAY, WEEKDAY, WEEKENDDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY, NONE
+}
+
+entity FileDto {
+  clientName String,
+  path String,
+  name String,
+  type String,
+  creationDate Instant,
+  modificationDate Instant,
+  sepsize Long,
+  user String,
+  info String
+}
+
+entity HwDrives {
+  id Long,
+  device String,
+  name String,
+  loaderNum Long,
+  compress Boolean,
+  msg String,
+  occupy Boolean,
+  accessMode HwDriveAccessMode,
+  smsCnts Long,
+  label String,
+  lastLabel String,
+  timeout Long,
+  mediaTimeout Long,
+  cleanBit Boolean,
+  loaderDrive Long,
+  path String,
+  devicePath String,
+  dataStore String,
+  ejectFlag Boolean,
+  mountCmd String,
+  umountCmd String,
+  onlineCmd String,
+  loadCmd String,
+  unloadCmd String,
+  credentialUuid String,
+  credentialId Long,
+  username String,
+  password String,
+  storageServer String,
+  ejectCmd String,
+  blockSize Long,
+  defaultBlockSize Long,
+  smsNr Long,
+  segmentSize Long,
+  options String,
+  encryptionCapable Boolean,
+  encryptionPassword String,
+  previousPassword String,
+  sepcomment String,
+  usercomment String,
+  configDrive Boolean,
+  dsDriveMode DSDriveMode,
+  mtime Instant
+}
+
+entity Syntaxes {
+  syntax String,
+  mtime Instant
+}
+
+entity UserAllowedHosts {
+  id Long,
+  userId Long,
+  host String,
+  mtime Instant,
+  uuid String,
+  fromJavaPolicy Boolean
+}
+
+entity ScheduleReferenceDto {
+}
+
+entity DailyDataSizeDto {
+  date Instant,
+  sum Long,
+  sum2 Long
+}
+
+entity DataStores {
+  name String,
+  sepcomment String,
+  usercomment String,
+  options String,
+  typeId String,
+  calculation DatastoreCalculation,
+  credentialId Long,
+  credentialIdName String,
+  capacity Double,
+  lowWaterMark Double,
+  highWaterMark Double,
+  minFree Double,
+  filled Double,
+  stored Double,
+  trash Double,
+  total Double,
+  used Double,
+  free Double,
+  lastAction String,
+  timestamp Instant,
+  accessMode String,
+  status String,
+  message String,
+  dedupMessage String,
+  cloneStatus String,
+  cloneMessage String,
+  cloneTime Instant,
+  diskStatus String,
+  diskMessage String,
+  gcStatus String,
+  gcMessage String,
+  gcStartTime Instant,
+  gcStopTime Instant,
+  fsckStatus String,
+  fsckMessage String,
+  fsckStartTime Instant,
+  fsckStopTime Instant,
+  fsckFullTime Instant,
+  readcheckStatus String,
+  readcheckMessage String,
+  sanityStatus String,
+  sanityMessage String,
+  sanityTime Instant,
+  replicationStoreId String,
+  mtime Instant,
+  uuid String,
+  sesamServer String,
+  path String,
+  smsCnts Long,
+  eol Long,
+  configDrive Boolean,
+  dsDriveMode DSDriveMode,
+  countOfDrivesChanged Boolean,
+  credentialsChanged Boolean,
+  forceCreate Boolean
+}
+
+enum PreferredMode {
+  ACTIVE, PASSIVE, NONE
+}
+
+entity StatisticResultItem {
+  id String,
+  values String
+}
+
+enum GranularityType {
+  ALL, MAILBOX, FOLDER, NONE
+}
+
+entity TaskGroupRelationsKey {
+  group String,
+  task String
+}
+
+entity SqlParamDto {
+  query String,
+  delimiter String,
+  format OutputFormat,
+  template String
+}
+
+enum DSDriveMode {
+  ADDDSDRIVE, CHANGEDSDRIVE, NONE
+}
+
+entity SesamEvents {
+  uuid String,
+  eventId String,
+  objectType String,
+  object String,
+  objectId String,
+  objectUuid String,
+  objectSubType String,
+  action String,
+  actionType String,
+  actionSubType String,
+  sessionId String,
+  referenceType String,
+  referenceId String,
+  referenceUuid String,
+  sesamDate Instant,
+  startTime Instant,
+  stopTime Instant,
+  deleteTime Instant,
+  actionStartTime Instant,
+  duration Long,
+  eol Instant,
+  state String,
+  sepcomment String,
+  severity Long,
+  priority Long,
+  locked Boolean,
+  entry Long,
+  schedule String,
+  saveset String,
+  sepsize Long,
+  source String,
+  sourceUuid String,
+  target String,
+  targetUuid String,
+  clientId Long,
+  client String,
+  clientUuid String,
+  clientOs String,
+  task String,
+  taskUuid String,
+  taskType String,
+  taskSubType String,
+  pool String,
+  label String,
+  driveNum Long,
+  storage String,
+  usercomment String,
+  userName String,
+  mtime Instant
+}
+
+enum UpdateMode {
+  SKIP, UPDATE
+}
+
+enum ExcludeType {
+  PATTERN, FIXPATTERN, REGEXP, FIXREGEXP, NONE
+}
+
+entity ClientUpdateDto {
+  clientName String,
+  locationId Long,
+  os String,
+  url String,
+  sesamPackage String,
+  install Boolean,
+  uninstall Boolean,
+  update Boolean,
+  servicepacks Boolean,
+  uiserver Boolean,
+  addClient Boolean,
+  force Boolean,
+  runAsUser Boolean,
+  withBsr Boolean,
+  withClient Boolean,
+  withGui Boolean,
+  remoteAccessCheck Boolean,
+  sbcConnectionCheck Boolean,
+  updateCheck Boolean,
+  versionCheck Boolean,
+  setClient Boolean,
+  sync Boolean,
+  timeout Long,
+  address String,
+  mode String,
+  sender String
+}
+
+entity Users {
+  id Long,
+  name String,
+  password String,
+  accountExpired Boolean,
+  locked Boolean,
+  passwordExpired Boolean,
+  enabled Boolean,
+  origin UserOrigin,
+  fromJavaPolicy Boolean,
+  allowHostAuth Boolean,
+  usercomment String,
+  dateChanged Instant,
+  dateCreated Instant,
+  changedBy String,
+  salt String,
+  thumbprint String,
+  mtime Instant,
+  uuid String
+}
+
+enum InstantStringType {
+  TODAY, YESTERDAY, NONE
+}
+
+entity LocationReferenceDto {
+}
+
+enum MediaActionType {
+  BALANCE, CHECK, CHECKSPACE, CHECKDATAFILES, CLOSETAPE, ENDOFMEDIA, EMPTYTRASH, FSCK, INITIALIZE, INTRODUCE, INVENTORY, PURGE, READCHECK, RECLAIMSPACE, RECOVER, REMOVE, RESTORE, SETWRITEPROTECT, SHREDDER, SEED, SYNC, UNLOAD, UNSETWRITEPROTECT, NONE, NONESELECTED
+}
+
+enum HwDriveAccessMode {
+  READ, READWRITE, WRITE, NONE
+}
+
+enum AclPermissionType {
+  NONE, FULLCONTROL, WRITE, READEXECUTE, READ
+}
+
+enum BackupType {
+  ABAS, BSRWINDOWS, CITRIXXENSERVER, COURIERIMAP, CYRUSIMAP, DB2UDB, DOVECOTIMAP, EDIRECTORY, EXCHANGESERVER2003, EXCHANGESERVER20072010, EXCHANGESERVER2010, EXCHANGESERVER5X, EXCHANGESERVERDAG, EXCHANGESERVERSINGLEMAILBOX, GROUPWISE, HYPERV, IFOLDER, INFORMIX, INGRES, JIRA, KOPANO, KVMQEMU, LINUXBSR, LOTUSNOTES, MARATHONEVERRUN, MAXDB, MSSQLSERVER, MYSQL, NDMP, NETAPP, NETWARE, NONE, NUTANIX, NSSFILESYSTEM, OESNOVELLDIRECTORY, OPENEXCHANGESERVER, OPENNEBULA, OPENLDAP, ORACLE, PATH, PATHALL, POSTGRESQL, PROXMOX, RHEV, SAPASE, SAPR3, SAPHANA, SCALIX, SHAREPOINTSERVER, SHAREPOINTSITES, SUSELINUXOPENEXCHANGESERVER, SYSTEMRECOVERY, SYSTEMSTATE, VMWAREVSPHERE, WIN32UNICODE, ZARAFA
+}
+
+entity TaskTypesMissingCFDI {
+  cfdi Cfdi
+}
+
+entity MailerDto {
+  message String,
+  subject String,
+  mailTo String,
+  smtpEmailAddress String,
+  smtpServer String,
+  smtpPort Long,
+  sslOptions SslOption,
+  mailUsername String,
+  clearMailPassword String,
+  mailPassword String,
+  mailCc String,
+  mailBcc String
+}
+
+enum SuppressFlag {
+  ALLEVENTS, BACKUP, MEDIA, RESTORE, COMMAND, MIGRATIONREPLICATION, NONE
+}
+
+enum MatchingMode {
+  NONE, ACTIVECOPYONLY, PASSIVECOPYONLY, ACTIVECOPYPREFERRED, PASSIVECOPYPREFERRED
+}
+
+enum NotificationsObjectType {
+  UNDEFINED, ACCEPTEULA, LICENSEEXCEEDED, ACCEPTIMMEDIATE, ACCEPTLICENSEINFO, ACCEPTRSSINFO, ACCEPTLATER, ACCEPTDISASTERRESTORE, ACCEPTKERNELINFO
+}
+
+enum SslOption {
+  SSL, TLS, NONE
+}
+
+entity Calendars {
+  uuid String,
+  name String,
+  summary String,
+  dateCreated Instant,
+  active Boolean,
+  comment String,
+  mtime Instant
+}
+
+entity SesamVersion {
+  value String
+}
+
+entity TaskGenDto {
+  input String,
+  taskGroup String,
+  taskGroups String,
+  sourceNotFound Boolean,
+  removeNonExisting Boolean,
+  removeAll Boolean,
+  removeOnly Boolean,
+  refreshVMCache Boolean
+}
+
+entity Locations {
+  id Long,
+  name String,
+  parentId Long,
+  describe String,
+  contact String,
+  credentialId Long,
+  credentialUuid String,
+  osCredentialId Long,
+  osCredentialUuid String,
+  osUser String,
+  osPassword String,
+  sepcomment String,
+  usercomment String,
+  dateChanged Instant,
+  dateCreated Instant,
+  changedBy String,
+  displayLabel String,
+  mtime Instant
+}
+
+entity Capacities {
+  sepsize Double,
+  protection VendorProtectionType,
+  mtime Instant
+}
+
+entity MediaActions {
+  name String,
+  type String,
+  owner String,
+  action MediaActionType,
+  dataStore String,
+  pool String,
+  label String,
+  driveNum Long,
+  suppress Boolean,
+  lowWaterMark Long,
+  highWaterMark Long,
+  checkFlag Boolean,
+  mtime Instant
+}
+
+enum RequiredType {
+  REQUIRED, OPTIONAL, NOT
+}
+
+entity SearchResultDto {
+  pos Long,
+  content Blob
+}
+
+enum OperatingSystemType {
+  CITRIXXENSERVER, ESXSERVER, LINUX, MARATHONEVERRUN, NETWARE, OESLINUX, UNIX, NETAPP, NDMP, VMS, OTHER, MAC, WINDOWSXP
+}
+
+entity RelativeDate {
+  relative Long,
+  absolute Instant
+}
+
+entity TaskGroupDto {
+  followUp String,
+  taskGroup String,
+  blockingDate Boolean,
+  migrationTask String,
+  ifaceName String,
+  maxDuration Long,
+  driveNum Long,
+  task String,
+  mediaPool String,
+  priority Long,
+  maxSinceFull String,
+  ssddFlag Boolean,
+  scheduleName String
+}
+
+entity TermMigrationEventDto {
+}
+
+entity LoaderInventoryDto {
+  loader Long,
+  drive Long,
+  action LoaderInventoryAction,
+  mediaPool String,
+  volumeType String,
+  slotArea String,
+  checkLabel Boolean,
+  fastMode Boolean,
+  poolLocation String,
+  driveGroup String,
+  barCode Boolean
+}
+
+enum LoaderCtrlType {
+  DIRDISK, DIRSLU, DIRVIRT, DIRACSLS, NONE
+}
+
+entity Performance {
+  id Long,
+  time Instant,
+  perfObjectId Long,
+  perfObject String,
+  perfType String,
+  state String,
+  throughput Double,
+  done Long,
+  running Long,
+  waiting Long,
+  mtime Instant
+}
+
+entity GroupRolesDto {
+
+}
+
+enum ReplicationGenericType {
+  SBC, SDS, CATALYST, NONE
+}
+
+entity Schedules {
+  name String,
+  cycFlag Boolean,
+  absFlag Boolean,
+  pCount Long,
+  pSubCount Long,
+  pBase ScheduleType,
+  pSubBase ScheduleType,
+  mo Boolean,
+  tu Boolean,
+  we Boolean,
+  th Boolean,
+  fr Boolean,
+  sa Boolean,
+  su Boolean,
+  dayOfMth Long,
+  mthOfYea Long,
+  wkOfMth Long,
+  dayOfWk DayOfWeek,
+  exec Boolean,
+  dayOffset Long,
+  sepcomment String,
+  generated Long,
+  calendarUuid String,
+  comment String,
+  usercomment String,
+  nextExec Instant,
+  mtime Instant
+}
+
+entity FileContentDto {
+  file String,
+  fileName String,
+  length Long,
+  lastModified Long,
+  content String,
+  deleteOnCompletion String
+}
+
+enum MediaReadCheckState {
+  ACTIONFAILED, ACTIVE, CANCELED, ERROR, FAILED, LOADFAILED, NONE, NONREQUESTED, OK, PASTDUE, PURGE, QUEUED, SUCCESSFUL, TIMEOUT, UNREAD, WARNING
+}
+
+entity MediapoolReferenceDto {
+}
+
+entity TaskGroupReferenceDto {
+}
+
+enum VendorProtectionType {
+  FACTORYSETTING, USERSETTING, NONE
+}
+
+entity MediaDto {
+  driveNum Long,
+  poolName String,
+  action MediaInitType,
+  options String,
+  label String,
+  format String,
+  barCode String,
+  storagePoolLocation String
+}
+
+entity PermissionRelations {
+  id Long,
+  roleId Long,
+  permissionId Long,
+  mtime Instant,
+  uuid String
+}
+
+entity ReplicationTypes {
+  SEPMIGRATION String,
+  SEPSI3REPLICATION String,
+  CATALYSTREPLICATION String,
+  NONESELECTED String,
+  name String,
+  genericType ReplicationGenericType,
+  vendorType String,
+  description String,
+  mtime Instant
+}
+
+enum CommandType {
+  EXECUTE, NONE
+}
+
+entity Acls {
+  id Long,
+  object String,
+  origin String,
+  value String,
+  label String,
+  valueLabel String,
+  mtime Instant,
+  uuid String
+}
+
+entity Commands {
+  name String,
+  owner String,
+  type CommandType,
+  host String,
+  userName String,
+  command String,
+  exitOptions String,
+  options String,
+  serverOptions String,
+  sepcomment String,
+  usercomment String,
+  mtime Instant,
+  duration String,
+  lifetime String
+}
+
+enum DatastoreGenericType {
+  PATH, ARCHIVE, DEDUP, SI3, S3, METADATA, NONE
+}
+
+enum ServerFileSubtype {
+  ALARM, BACKUP, DISASTER, ERROR, MEDIA, MIGRATION, NOTIFY, PREBACKUP, PRERESTORE, PRETASKGROUP, POSTBACKUP, POSTRESTORE, RESTORE, SESAM, STATE
+}
+
+entity ResultLblsKey {
+  name String,
+  num Long,
+  count Long
+}
+
+enum SmsFlag {
+  SESAM, NDMP, NONE
+}
+
+enum AclUserType {
+  NONE, USER, GROUP
+}
+
+entity DataStoreTypes {
+  SEPSI3 String,
+  SEPSI3NG String,
+  SEPSI3DEDUPSTORE String,
+  SEPSI3NGDEDUPSTORE String,
+  PATH String,
+  SEPEASYARCHIVE String,
+  NETAPPSNAPSTORE String,
+  HPE String,
+  HPECLOUDBANK String,
+  SESAM String,
+  name String,
+  genericType DatastoreGenericType,
+  vendorType String,
+  mtime Instant
+}
+
+enum DataSizeFormats {
+  BINARY, DECIMAL
+}
+
+entity RestoreEvents {
+  id Long,
+  name String,
+  restoreTask String,
+  exec Boolean,
+  eol Long,
+  scheduleName String,
+  priority Long,
+  suppress Boolean,
+  followUp String,
+  owner String,
+  driveNum Long,
+  ifaceName String,
+  srvIfaceName String,
+  listmode String,
+  absoluteFlag Boolean,
+  savesetStart Long,
+  savesetEnd Long,
+  minMax MinMax,
+  lifeTime Long,
+  duration Long,
+  state String,
+  mediaPool String,
+  mediaTolerance String,
+  mediaPreference String,
+  dataMover String,
+  dataMoverId Long,
+  useSaveset String,
+  restoreCmd String,
+  options String,
+  referenceType ReferenceType,
+  referenceId String,
+  sepcomment String,
+  usercomment String,
+  immediateFlag Boolean,
+  mtime Instant
+}
+
+entity UserSchedsKey {
+  name String,
+  dateName String
+}
+
+enum MediaLockType {
+  UNLOCKED, LOCKED, DEPRECATED, NONE
+}
+
+entity ReferenceDto {
+  lists String
+}
+
+enum AclGrantType {
+  NONE, ALLOW, DENY
+}
+
+entity Clients {
+  id Long,
+  name String,
+  locationPattern String,
+  netProt NetProt,
+  macAddress String,
+  accessmode AccessMode,
+  accessState Integer,
+  accessTime Instant,
+  accessSuccess Instant,
+  sepcomment String,
+  usercomment String,
+  permit Boolean,
+  wolFlag Boolean,
+  updateMode UpdateMode,
+  credentialId Long,
+  credentialUuid String,
+  userName String,
+  password String,
+  osCredentialId Long,
+  osCredentialUuid String,
+  osUser String,
+  osPassword String,
+  accessOptions String,
+  stpdPort Long,
+  stpdOptions String,
+  stpdHttpPort Long,
+  stpdHttpOptions String,
+  stpdHttpsPort Long,
+  stpdHttpsOptions String,
+  sshdPort Long,
+  sshdOptions String,
+  sbcVersion String,
+  jarVersion String,
+  jarVersionNumber Long,
+  jarAvailableVersion String,
+  jarAvailableNumber Long,
+  jarUpdateDate Instant,
+  availableVersion String,
+  versionNumber Long,
+  availableNumber Long,
+  servicepackVersionNumber Long,
+  servicepackAvailableNumber Long,
+  computedUpdateMessage String,
+  moduleVersions String,
+  excludeType ExcludeType,
+  hwPlatform String,
+  genPack String,
+  servicepackGenPack String,
+  cores Long,
+  dataMover String,
+  vmHost String,
+  vmHostType VmServerType,
+  vmName String,
+  vmServerType VmServerType,
+  licenseLevel String,
+  installationDate Instant,
+  servicepackDate Instant,
+  updateDate Instant,
+  updateState String,
+  updateMessage String,
+  dateChanged Instant,
+  dateCreated Instant,
+  changedBy String,
+  autoGenerated Long,
+  mtime Instant,
+  uuid String,
+  availableBackupTypes BackupType,
+  orphaned Boolean
+}
+
+enum BackupLockUpdateMode {
+  CHAIN, SELF, CHILDREN
+}
+
+entity IniErrorDto {
+  errorText String,
+  internalError Integer
+}
+
+entity Results {
+  name String,
+  client String,
+  clientId Long,
+  driveNum Long,
+  duration Long,
+  entry Long,
+  ifaceName String,
+  sepcomment String,
+  pid Long,
+  priority Long,
+  schedule String,
+  sesamDate Instant,
+  sessionId String,
+  sepsize Double,
+  ssddFlag Boolean,
+  startTime Instant,
+  state StateType,
+  stopTime Instant,
+  throughput Double,
+  usercomment String,
+  task String,
+  taskUuid String,
+  cnt Long,
+  isBackup Long,
+  mediaPool String,
+  startMedia String,
+  lblCnt Long,
+  driveNumSet Long,
+  clientUuid String,
+  clientOs String,
+  dataMover String,
+  vclientUuid String,
+  sbcVersion String,
+  smsVersion String,
+  locationId Long,
+  locationUuid String,
+  source String,
+  sourceEncoding String,
+  sourceUuid String,
+  additionalSourceInfo String,
+  exclude String,
+  excludeType ExcludeType,
+  versionId Long,
+  locked Boolean,
+  eol Instant,
+  eolChangedBy String,
+  eolChangedByUser String,
+  eolChangedByMsg String,
+  blocks Double,
+  estimatedSize Double,
+  dataSize Double,
+  skippedSize Double,
+  storedSize Double,
+  totalSize Double,
+  smsFlag String,
+  sbcStart Instant,
+  savesetState String,
+  resultsState String,
+  backupCmd String,
+  backupType BackupType,
+  backupSubType BackupSubType,
+  checkpoint String,
+  interpreter Interpreter,
+  backupOptions String,
+  restoreOptions String,
+  bsrFlag Boolean,
+  externFlag Boolean,
+  onlineFlag OnlineFlag,
+  compressFlag Boolean,
+  cryptFlag CryptFlagType,
+  cryptKey String,
+  cryptFlagMedia CryptFlagType,
+  cryptKeyMedia String,
+  verifyState StateType,
+  verifyDate Instant,
+  checksum String,
+  originalSaveset String,
+  copyFrom String,
+  referenceType ReferenceType,
+  referenceSsid String,
+  basedOnFull String,
+  basedOn String,
+  multiSource String,
+  processed Long,
+  notprocessed Long,
+  excluded Long,
+  skipped Long,
+  savesetCnt Long,
+  label String,
+  savesetId String,
+  savesetEol Instant,
+  savesetPool String,
+  savesetCount Long,
+  totalCount Long,
+  originServer String,
+  live Boolean,
+  lastFullBackup Instant,
+  lastSuccessfulBackup Instant,
+  uselastSuccessfulBackup Boolean,
+  lockUpdateMode BackupLockUpdateMode,
+  mtime Instant,
+  uuid String
+}
+
+entity ParamsFix {
+  name String,
+  restEol Long,
+  minFree Long,
+  type String,
+  version String,
+  instDate Instant,
+  instCryp String,
+  updateDate Instant,
+  val1 String,
+  val2 String,
+  val3 String,
+  val4 String,
+  serialnumber String,
+  serverId String,
+  sts String,
+  sepcomment String,
+  mtime Instant
+}
+
+entity CalendarEvents {
+  calendar String,
+  summary String,
+  dateStart Instant,
+  dateEnd Instant,
+  active Boolean,
+  allDay Boolean,
+  singleDay Instant,
+  usercomment String,
+  uuid String,
+  mtime Instant
+}
+
+enum ScheduleType {
+  MINS, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY, ONCE, USER
+}
+
+entity ExternalGroups {
+  id Long,
+  externalId String,
+  enabled Boolean,
+  usercomment String,
+  mtime Instant,
+  type ExternalGroupsType
+}
+
+enum ResultFdiType {
+  COPY, FULL, DIFF, INCR, MEDIA, NEWDAY, STARTUP, EXECUTE, NONE, NONESELECTED
+}
+
+enum DriveActionType {
+  RELEASE, RELEASEGROUP, INFO, MOUNT, DISMOUNT, UNLOAD, RECONFIGURE, PURGE, START, CLEANUP
+}
+
+enum EventType {
+  NEWDAY, NEWDAYSCHEDULED, EXECUTE, EXECUTESCHEDULED, BACKUP, BACKUPSCHEDULED, GROUP, GROUPSCHEDULED, STARTUP, STARTUPSCHEDULED, MEDIA, MEDIASCHEDULED, RESTORE, RESTORESCHEDULED, MIGRATION, COMMANDSCHEDULED, DUMMY, TASK, NONE
+}
+
+enum BackupSubType {
+  EXCHANGE2013, VMIMAGE, VMMAIN, VMCBT, VMCONFIG, NONE
+}
+
+entity DriveTypes {
+  DISKSTORE String,
+  name String,
+  genericType String,
+  mtime Instant
+}
+
+enum NetProt {
+  TCPIP, NONE
+}
+
+entity MediapoolRelations {
+  pool String,
+  poolLocation String,
+  priority Long,
+  usercomment String,
+  mtime Instant
+}
+
+enum ExecutionStateType {
+  Stopping, Stopped, Starting, Started, NONE
+}
+
+enum NotificationsAcknowledged {
+  OPEN, ACCEPTED, LATER, DISMISSED, RESOLVED
+}
+
+entity EventInfoDto {
+  displayName String,
+  id Long,
+  type EventType,
+  object String,
+  iface String,
+  driveLabel String,
+  scheduleName String
+}
+
+entity CfdiType {
+  fdi Cfdi
+}
+
+entity ImmediateRestoreDto {
+  startTime Instant,
+  lifeTime Long,
+  duration Long,
+  selectedFiles String,
+  start Boolean
+}
+
+entity ExternalGroupRelations {
+  id Long,
+  groupId Long,
+  externalGroupId Long,
+  mtime Instant,
+  uuid String
+}
+
+entity TermNewdayEventDto {
+}
+
+entity Tasks {
+  MAXNAMELENGTH Integer,
+  MAXNDMPNAMELENGTH Integer,
+  DEFAULTTASKNAMETEMPLATE String,
+  name String,
+  subType TasksSubType,
+  source String,
+  sourceEncoding String,
+  sourceUuid String,
+  exclude String,
+  excludeType ExcludeType,
+  usercomment String,
+  resultsSts StateType,
+  taskSts TaskSts,
+  autoGenerated Long,
+  backupCmd String,
+  backupOptions String,
+  backupSrvOptions String,
+  restoreOptions String,
+  restoreSrvOptions String,
+  nfsMount Boolean,
+  multiSource String,
+  multiSourceType String,
+  filesystem Boolean,
+  granularity GranularityType,
+  bsrFlag BsrFlagType,
+  compressFlag Boolean,
+  cryptFlag CryptFlagType,
+  cryptKey String,
+  cryptSavekeyFlag Boolean,
+  snapshotFlags TasksSnapshotFlags,
+  dataMover String,
+  dataMoverId Long,
+  vclientUuid String,
+  nodeFlag Boolean,
+  preferredMode String,
+  allowOtherMode Boolean,
+  credentialId Long,
+  credentialUuid String,
+  userName String,
+  password String,
+  exec Boolean,
+  lastFullBackup String,
+  lastDiffBackup String,
+  lastIncrBackup String,
+  lastFdiBackup String,
+  lastCopyBackup String,
+  mtime Instant,
+  uuid String
+}
+
+entity LoaderContents {
+  lbl String,
+  barcode String,
+  checkLbl LoaderCheckLbl,
+  checkedlbl String,
+  fromObject LoaderContentsObject,
+  fromNumber Long,
+  toObject LoaderContentsObject,
+  toNumber Long,
+  location String,
+  mtime Instant
+}
+
+entity EventsScheduleParamDto {
+  startDate Instant,
+  startTime Instant,
+  endDate Instant,
+  endTime Long,
+  lifeTime Long,
+  duration Long
+}
+
+enum GroupMode {
+  ENABLED, NONE
+}
+
+enum LoaderInventoryAction {
+  NO, TAKE, OVERWRITE, YES
+}
+
+entity Media {
+  name String,
+  label String,
+  barcode String,
+  poolName String,
+  idNum Long,
+  externalId Long,
+  locked MediaLockType,
+  sesamDate Instant,
+  eol Instant,
+  eolChangedby String,
+  driveNum Long,
+  initDrive Long,
+  sequence Long,
+  previousLabel String,
+  nextLabel String,
+  mediaType String,
+  loaderNum Long,
+  slot Long,
+  capacity Long,
+  free Long,
+  filled Double,
+  eomState Boolean,
+  firstInit Instant,
+  lastInit Instant,
+  closeTape Boolean,
+  initFlag Boolean,
+  error Long,
+  errorDelt Long,
+  useCount Long,
+  location String,
+  duplflag Boolean,
+  sepcomment String,
+  usercomment String,
+  readcheckState MediaReadCheckState,
+  readcheckMsg String,
+  cryptKeyMedia String,
+  cryptFlagMedia Boolean,
+  encryptionCapable Boolean,
+  containsEncryptedBlocks Boolean,
+  uniqueCartridgeIdentity String,
+  mtime Instant,
+  uuid String
+}
+
+entity Terms {
+  id Long,
+  eventType EventType,
+  schedule String,
+  event String,
+  nextExec Instant,
+  nextEnd Instant,
+  mtime Instant
+}
+
+enum SepPermissionType {
+  SUPERUSER, ADMIN, RESTOREUSER, OPERATOR, BACKUPUSER, NONE
+}
+
+enum BrowserViewType {
+  DEFAULT, VSPHEREHOSTANDCLUSTERS, VSPHEREVMANDTEMPLATES
+}
+
+enum DatastoreCalculation {
+  AUTO, CAPACITY, DISKSTAT
+}
+
+entity AllResultsFlag {
+  groupMode GroupMode,
+  type AllResultsType,
+  c String,
+  pos Integer
+}
+
+enum PowerStateType {
+  Off, On, Suspended, Standby, NONE
+}
+
+enum UpdateState {
+  NONE, UPTODATE, UPDATEABLE, NEWER, QUEUED, INPROGRESS, ERROR
+}
+
+enum ProxyType {
+  A, U, W, NONE
+}
+
+enum ExternalGroupsType {
+  NONE, AD, LDAP
+}
+
+entity LoginDto {
+  username String,
+  secret String,
+  certificate String,
+  certificateEncoded String,
+  loginName String,
+  ip String,
+  type SessionType
+}
+
+entity Notifications {
+  id Long,
+  module NotificationsModule,
+  sesamDate Instant,
+  versionConstraint String,
+  sesamVersion String,
+  versionNumber Long,
+  timestamp Instant,
+  severity NotificationSeverity,
+  objectType NotificationsObjectType,
+  type NotificationsType,
+  object String,
+  host String,
+  action NotificationsAction,
+  state String,
+  acknowledged NotificationsAcknowledged,
+  ackBy String,
+  ackDate Instant,
+  ackUsercomment String,
+  resolvedDate Instant,
+  resolvedBy String,
+  resubmissionDate Instant,
+  pid Long,
+  subject String,
+  sepcomment String,
+  usercomment String,
+  mtime Instant
+}
+
+entity TaskEvents {
+  id Long,
+  name String,
+  object String,
+  exec Boolean,
+  eol Long,
+  scheduleName String,
+  priority Long,
+  suppress Boolean,
+  followUp String,
+  grpFlag Boolean,
+  owner String,
+  mediaPool String,
+  mediaLabel String,
+  driveNum Long,
+  ifaceName String,
+  srvIfaceName String,
+  dataMover String,
+  dataMoverId Long,
+  maxSinceFull String,
+  enforceFull Boolean,
+  migrationTask String,
+  referenceType ReferenceType,
+  referenceSsid String,
+  onlineFlag Boolean,
+  ssddFlag Boolean,
+  options String,
+  sepcomment String,
+  usercomment String,
+  immediateFlag Boolean,
+  maxDuration Long,
+  mtime Instant
+}
+
+enum MediaResultState {
+  OK, WARNING, ERRORNOTENOUGHSPACE, ERRORNOTENOUGHARGUMENTS, ERRORCANTOPENLISFILE, ERRORCANTOPENNOTFILE, ERRORACCESSDATASTORE, ERRORARGUMENTS, ERRORREMOTECMD, ERRORUNKNOWN, ERRORPROBLEMWITHLISFILEPARSING, ERRORCANTCORRECTLYCLOSEFILEHANDLE, NONE, ACTIONFAILED, ACTIVE, FAILED, LOADFAILED, NONREQUESTED, PASTDUE, QUEUED, TIMEOUT, UNREAD, NONESELECTED
+}
+
+enum ServerFileType {
+  ACTION, CALENDAR, CURRENT, SERVICES, LOG, PATH, UPDATE
+}
+
+entity TaskGroups {
+  name String,
+  sepcomment String,
+  text String,
+  resultsSts StateType,
+  prepostSwitch String,
+  usercomment String,
+  exec Boolean,
+  options String,
+  backupTypeId String,
+  groupType String,
+  mtime Instant,
+  uuid String
+}
+
+entity CapacitiesKey {
+  driveType String,
+  mediaType String
+}
+
+enum LoaderCheckLbl {
+  EMPTYSLOT, LOADERADJUSTEMENTACTIVE, PROBABLYHARDWAREPROBLEM, ERRORARCHIVINGMEDIA, MEDIAINLOADERNOTINTABLE, INITIALIZATIONACTIVE, PREVIOUSLABELEDMEDIAINLOADER, CONFLICTBETWEENBARCODELABEL, LABELOK, UNKNOWNSTATE, CLEANINGTAPE, NONE
+}
+
+enum TaskSts {
+  FULL, NONE
+}
+
+enum RestoreType {
+  FULL, SELECTIVE, DISKINFO, NONE, ATTACH, MOUNT, OTHER, NO, RECOVER, RECOVERSTART, HOT, HOTRECOVER
+}
+
+entity TermMediapoolEventDto {
+}
+
+entity ResultLbls {
+  backupId String,
+  label String,
+  pool String,
+  id Long,
+  segment String,
+  location String,
+  checksum String,
+  creationTime Instant,
+  eol Instant,
+  eolChangedBy String,
+  eolChangedByUser String,
+  eolChangedByMsg String,
+  state StateType,
+  sesamDate Instant,
+  cnt Long,
+  mtime Instant
+}
+
+entity CommandReferenceDto {
+}
+
+enum Interpreter {
+  MTF, CPIO, SDIF, DUMP, NONE
+}
+
+entity UserGroupRelationsKey {
+  userId Long,
+  groupId Long
+}
+
+enum StatisticsType {
+  COUNT, DATASIZE, STATE
+}
+
+entity TaskReferenceDto {
+}
+
+enum ConnectionStateType {
+  Connected, Disconnected, NotResponding, NONE
+}
+
+entity DefaultsKey {
+  key String,
+  userName String
+}
+
+enum OutputFormat {
+  HEADER, NOHEADER, EXPORT, NAMED, JSON, RYTHM
+}
+
+enum TasksSnapshotFlags {
+  VSS, LVM, NONE, TM
+}
+
+enum GuidLocationType {
+  EQUAL, LESSER, GREATER, UNDEFINED
+}
+
+entity MediaPools {
+  TYPECLONE String,
+  id Long,
+  name String,
+  type MediaPoolType,
+  descript String,
+  driveGroupId Long,
+  mediaStrg String,
+  mediaChg String,
+  closeOnInit Boolean,
+  closeOnInitGrp Boolean,
+  inactive Boolean,
+  diskCapac Long,
+  diskDir String,
+  eol Long,
+  acceptEmpty Boolean,
+  acceptEol Boolean,
+  acceptSpare Boolean,
+  acceptOther Boolean,
+  allowMove Boolean,
+  useStoragepools Boolean,
+  readcheckLimit Long,
+  readcheckRepeatrate Long,
+  readcheckOverdue Long,
+  cryptKeyMedia String,
+  cryptFlagMedia Boolean,
+  cryptSavekeyFlagMedia Boolean,
+  mtime Instant
+}
+
+entity Interfaces {
+  order1 Long,
+  order2 Long,
+  name String,
+  clientId Long,
+  flags String,
+  order Long,
+  type String,
+  mtime Instant
+}
+
+entity MediaResults {
+  name String,
+  client String,
+  clientId Long,
+  driveNum Long,
+  duration Long,
+  eol Instant,
+  ifaceName String,
+  sepcomment String,
+  pid Long,
+  priority Long,
+  schedule String,
+  sesamDate Instant,
+  sesamVersion String,
+  sessionId String,
+  sepsize Long,
+  state MediaResultState,
+  startTime Instant,
+  stopTime Instant,
+  throughput Double,
+  usercomment String,
+  action MediaActionType,
+  run Long,
+  checkFlag Boolean,
+  dataStore String,
+  pool String,
+  mediaLabel String,
+  mediaBarcode String,
+  device String,
+  driveName String,
+  loaderNum Long,
+  slotRange String,
+  blocks Long,
+  capacity Double,
+  highWaterMark Double,
+  lowWaterMark Double,
+  filled Double,
+  stored Double,
+  total Double,
+  used Double,
+  free Double,
+  driveType String,
+  mediaType String,
+  message String,
+  LongMessage String,
+  options String,
+  ssddFlag Boolean,
+  originServer String,
+  mtime Instant,
+  uuid String
+}
+
+enum MediaInitType {
+  NONE, TAKE, OVER
+}
+
+entity PrePost {
+  activatePreInterface Boolean,
+  executeBackupDespitePreError Boolean,
+  activatePostInterface Boolean,
+  executePostDespiteBackupError Boolean
+}
+
+enum AllResultsType {
+  RESTORERESULTS, MIGRATIONRESULTS, REPLICATIONRESULTS, MEDIARESULTS, COPY, FULL, DIFF, INCR, MEDIA, NEWDAY, STARTUP, EXECUTE, NONE, NONESELECTED
+}
+
+enum NotificationsModule {
+  LICENSE, LICENSEEULA, LICENSEINFO, LICENSEVIOLATION, CBTINFO, CLIINFO, RSSINFO, RSSMARKETING, EMAILINFO, EXCHANGEDOTNETINFO, MOSSINFO, KERNEL, UNDEFINED
+}
+
+enum AccessMode {
+  RSH, CTRL, PROXY, SSH, SMSSH, AGENTLESS, VIRTUAL, NONE
+}
+
+entity ProfilesKey {
+  name String,
+  node String,
+  userName String,
+  key String
+}
+
+entity MigrationResults {
+  name String,
+  client String,
+  clientId Long,
+  duration Long,
+  eol Instant,
+  externalId String,
+  ifaceName String,
+  sepcomment String,
+  pid Long,
+  priority Long,
+  backupId String,
+  saveset String,
+  schedule String,
+  sesamDate Instant,
+  sesamVersion String,
+  sessionId String,
+  sepsize Long,
+  ssddFlag Boolean,
+  startTime Instant,
+  state StateType,
+  stopTime Instant,
+  throughput Double,
+  usercomment String,
+  userName String,
+  migrationTask String,
+  replicationType String,
+  transferStart Instant,
+  sourcePool String,
+  targetPool String,
+  sourceDrive Long,
+  targetDrive Long,
+  targetSavesetName String,
+  grpflag Boolean,
+  taskName String,
+  savesetDate Instant,
+  migratedFlag Boolean,
+  savesetCnt Long,
+  backupState StateType,
+  mediaLabel String,
+  filter String,
+  options String,
+  genmode Boolean,
+  listmode String,
+  subtaskFlag Boolean,
+  parent String,
+  transferred Long,
+  transferredBrutto Long,
+  speedup Double,
+  migrationCmd String,
+  originServer String,
+  uuid String,
+  mtime Instant
+}
+
+enum RestoreTreeType {
+  DEEP, FLAT, NONE
+}
+
+
+
+// dto * with mapstruct
+// service all with serviceImpl
+
+readOnly AllResult
+readOnly MigrationResult
+readOnly MediaResult
+readOnly BackupResult
+readOnly RestoreResult
+readOnly ResultLbl
+
+paginate MigrationResult with pagination
+paginate MediaResult with pagination
+paginate RestoreResult with pagination
+paginate BackupResult with pagination
+paginate ResultLbl with pagination
+paginate AllResult with pagination
+
